@@ -1,6 +1,8 @@
-# Getting Started with Create React App
+# Regional Messenger
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
+
+Regional Messenger is a web application developed as part of a school project. It allows users to register, log in, and post messages based on their location (city, region, country). The application is built using a microservices architecture with a React frontend and Node.js backend services.
 
 ## Available Scripts
 
@@ -16,55 +18,99 @@ You may also see any lint errors in the console.
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Launches the test runner in the interactive watch mode.
 
 ### `npm run build`
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
 ### `npm run eject`
 
 **Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Running the Components
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Frontend
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. Navigate to the `frontend` directory:
+   ```sh
+   cd frontend
+2. Install the dependencies:
+   ```sh
+   npm install
+2. Start the development server:
+   ```sh
+   npm start
+### Backend Services
+##### Downloading Repositories
+To run the backend services, you need to download the other repositories from the following URLs:
 
-## Learn More
+User Service: https://github.com/yourusername/user-service-repo  
+Message Service: https://github.com/yourusername/message-service-repo  
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Clone these repositories into the appropriate directories before running the services.
+(Put them in a directory with the front end.)
+#### User-Service
+1. Navigate to the `user-service` directory:
+   ```sh
+   cd user-service
+2. Install the dependencies:
+   ```sh
+   npm install
+2. Start the service:
+   ```sh
+   npm run dev
+#### Message-Service
+1. Navigate to the `message-service` directory:
+   ```sh
+   cd message-service
+2. Install the dependencies:
+   ```sh
+   npm install
+2. Start the service:
+   ```sh
+   npm run dev
+## Security Considerations
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+During the development of this project, some vulnerabilities were identified in the dependencies. Given the time constraints and the nature of the project, the decision was made to ignore these vulnerabilities. The vulnerabilities are as follows:
 
-### Code Splitting
+1. nth-check:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+    Severity: High  
+    Issue: Inefficient Regular Expression Complexity  
+    Impact: Could potentially be exploited to cause   performance issues.  
+1. postcss:
 
-### Analyzing the Bundle Size
+    Severity: Moderate  
+    Issue: Line return parsing error  
+    Impact: Could potentially be exploited to cause unexpected behavior.  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+These vulnerabilities are not expected to pose a significant risk for this school project, which is not intended for production use.  
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Libraries and Tools Used
 
-### Advanced Configuration
+### Frontend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- **React**: A JavaScript library for building user interfaces.
+- **Material-UI**: A popular React UI framework with a set of components that follow Google's Material Design guidelines.
 
-### Deployment
+### Backend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- **Express**: A minimal and flexible Node.js web application framework.
+- **cors**: A Node.js package for providing a Connect/Express middleware that can be used to enable CORS with various options.
+- **dotenv**: A zero-dependency module that loads environment variables from a `.env` file into `process.env`.
+- **mysql2**: A MySQL client for Node.js with a focus on performance.
+- **bcrypt**: A library to help hash passwords.
+- **nodemon**: A tool that helps develop Node.js based applications by automatically restarting the node application when file changes in the directory are detected.
 
-### `npm run build` fails to minify
+### Development Tools
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **npm**: A package manager for JavaScript, included with Node.js.
+- **Visual Studio Code**: A source-code editor made by Microsoft for Windows, Linux, and macOS.
+
+### Other
+
+- **Git**: A distributed version-control system for tracking changes in source code during software development.
+- **GitHub**: A provider of Internet hosting for software development and version control using Git.

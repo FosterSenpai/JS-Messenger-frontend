@@ -1,37 +1,85 @@
 import React, { useState } from 'react';
+import { TextField, Button, Box, FormControl, FormLabel } from '@mui/material';
 
-const PostMessage = ({ city, region, country, boardType, setRefresh }) => {
+const PostMessage = ({ city, region, country, boardType, parentId, onPost, username }) => {
   const [content, setContent] = useState(''); // State to store the message content.
 
-  // Handler to post a message.
+  // Function to handle the post button click.
   const handlePost = () => {
-    // Send a POST request to the messages route.
-    fetch(`${process.env.REACT_APP_MESSAGE_SERVICE_URL}/api/messages`, {
+    // Check if the content is empty
+    if (!content.trim()) {
+      return; // Do nothing if the content is empty.
+    }
+    
+    const url = parentId // If parentId is provided, it's a reply, so use the replies endpoint.
+      ? `${process.env.REACT_APP_MESSAGE_SERVICE_URL}/api/messages/${parentId}/replies`
+      : `${process.env.REACT_APP_MESSAGE_SERVICE_URL}/api/messages`;
+
+    const data = parentId
+      ? { content, username } // If its a reply, only send the content and username.
+      : { city, region, country, content, boardType, username };
+
+    // POST request to the message service to post a message or reply.
+    fetch(url, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json', // Set the content type to JSON.
+      headers: { 
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ city, region, country, content, boardType }), // Send the city, region, country, content, and boardType as JSON.
+      body: JSON.stringify(data), // Send the data as JSON.
     })
-      .then(response => response.json()) // Parse the response as JSON.
+      .then(response => {
+        if (!response.ok) {     // If the response is not ok, throw an error.
+          return response.json().then(err => { throw new Error(err.message); });
+        }
+        return response.json(); // If the response is ok, parse it as JSON.
+      })
       .then(data => {
-        console.log('Message posted:', data); // Log the posted message.
-        setContent(''); // Clear the input field after posting.
-        setRefresh(prev => !prev); // Trigger a re-fetch of messages.
+        setContent('');       // Clear the input field after posting.
+        if (onPost) onPost(); // Call onPost.
       })
       .catch(error => console.error('Error posting message:', error)); // Log any errors.
   };
 
   return (
-    <div>
-      <h3>Post a Message</h3>
-      <textarea
-        placeholder="Your message" // Placeholder text for the textarea.
-        value={content} // Bind the textarea value to the content state.
-        onChange={(e) => setContent(e.target.value)} // Update the content state on change.
-      />
-      <button onClick={handlePost}>Post</button> {/* Button to post the message. */}
-    </div>
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        width: '100%',
+      }}
+    >
+      <FormControl fullWidth sx={{ marginBottom: 2 }}>
+        {/* Text Above input field */}
+        <FormLabel htmlFor="message-content">
+          {parentId ? 'Post a Reply' : 'Post a Message'}
+        </FormLabel>
+
+        {/* Text input field */}
+        <TextField
+          id="message-content"
+          placeholder={parentId ? 'Your reply' : 'Your message'} // Placeholder text.
+          value={content}
+          onChange={(e) => setContent(e.target.value)}           // Update when the input changes.
+          fullWidth
+          multiline
+          rows={4}
+          margin="normal"
+          variant="outlined"
+        />
+      </FormControl>
+
+      {/* Post button */}
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', width: '100%' }}>
+        <Button
+          variant="contained"
+          sx={{ backgroundColor: '#757575', color: '#fff' }}
+          onClick={handlePost}
+        >
+          Post
+        </Button>
+      </Box>
+    </Box>
   );
 };
 
