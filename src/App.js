@@ -8,11 +8,6 @@ import Sidebar from './Sidebar';
 import { MainContainer } from './styledComponents';
 
 function App() {
-
-  // Log the environment variables
-  console.log('User Service URL:', process.env.REACT_APP_USER_SERVICE_URL);
-  console.log('Message Service URL:', process.env.REACT_APP_MESSAGE_SERVICE_URL);
-  
   // States to store the logged-in user, user location, and selected board.
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [userLocation, setUserLocation] = useState({ city: '', region: '', country: '' });
